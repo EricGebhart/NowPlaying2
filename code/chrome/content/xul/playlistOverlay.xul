@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<!--
+This gets overlaid into all media pages that import mediaPageOverlay,
+which should be all media pages that use a playlist element.
+The command targetting system has a bug which makes the playlist toolbar show
+up when it shouldn't.
+Import a stylesheet that hides the toolbar of any playlist element.
+-->
+
+
+
+<?xml-stylesheet href="chrome://nowplaying/content/styles/playlist.css" type="text/css"?>
+
+<overlay id="nowplaying-playlist-overlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+</overlay>
+

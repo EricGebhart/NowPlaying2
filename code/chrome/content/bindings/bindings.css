@@ -1,0 +1,3 @@
+sb-playlist[type=queue] {
+  -moz-binding: url('chrome://nowplaying/content/bindings/playlist.xml#playlist') !important;
+}

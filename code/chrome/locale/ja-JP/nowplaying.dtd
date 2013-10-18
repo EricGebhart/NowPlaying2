@@ -1,0 +1,28 @@
+<!ENTITY jcm.nowplaying.extensionname "Now Playing">
+<!ENTITY jcm.nowplaying.save "保存">
+<!ENTITY jcm.nowplaying.clear "消去">
+<!ENTITY jcm.nowplaying.randomize "ランダム">
+<!ENTITY jcm.nowplaying.tooltip.queue "キュー">
+<!ENTITY jcm.nowplaying.tooltip.queue_off "キューをオフ">
+<!ENTITY jcm.nowplaying.preferences.windowtitle "Now Playing 設定">
+<!ENTITY jcm.nowplaying.preferences.label "Now Playing リスト">
+<!ENTITY jcm.nowplaying.preferences.tagline "トラックを選択したときの Now Playing List の動作を指定してください。(例えば、プレイリスト内の行をダブルクリックとき)">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.0 "トラック選択時の Songbird の動作:">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.1 "トラックの再生開始:">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.1.1 "トラックを再生中リストの先頭に挿入">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.1.2 "トラックを含むプレイリストを再生中リストに表示">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.2 "トラックを次に再生される位置に追加">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.3 "トラックを最後に再生される位置に追加">
+<!ENTITY jcm.nowplaying.preferences.basicmode.caption "Now Playing の動作">
+<!ENTITY jcm.nowplaying.preferences.queuemode.caption "再生キューの動作">
+<!ENTITY jcm.nowplaying.preferences.showcontent "現在再生中のプレイリストの内容を表示する">
+<!ENTITY jcm.nowplaying.preferences.fork.1 "リストを編集したら元のプレイリストに反映する">
+<!ENTITY jcm.nowplaying.preferences.fork.2 "リストを編集したら現在再生中のプレイリストを基に新しいカスタムプレイリストを作成する">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.question "トラックの再生終了後:">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.1 "何もしない">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.2 "キューから削除する">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.3 "リストを次のトラックへスクロール">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.question "キューの最後に到達後:">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.1 "再生を停止する">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.2 "キュー内のトラックではなく、次に再生されるトラックに戻る">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.3 "最後に再生されたトラックから続くトラックを再生する">

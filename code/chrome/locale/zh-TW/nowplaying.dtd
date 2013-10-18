@@ -1,0 +1,28 @@
+<!ENTITY jcm.nowplaying.extensionname "正在播放">
+<!ENTITY jcm.nowplaying.save "儲存">
+<!ENTITY jcm.nowplaying.clear "清除">
+<!ENTITY jcm.nowplaying.randomize "隨機化">
+<!ENTITY jcm.nowplaying.tooltip.queue "佇列">
+<!ENTITY jcm.nowplaying.tooltip.queue_off "關閉佇列">
+<!ENTITY jcm.nowplaying.preferences.windowtitle "Now Playing 偏好設定">
+<!ENTITY jcm.nowplaying.preferences.label "Now Playing List">
+<!ENTITY jcm.nowplaying.preferences.tagline "Now Playing List 能讓你設定選擇歌曲後的行為；例如：設定當你按兩下播放清單中的歌曲時要執行什麼動作。">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.0 "選擇歌曲後，Songbird 該怎麼做:">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.1 "開始播放歌曲後:">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.1.1 "將歌曲插入「正在播放清單」的最頂端">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.1.2 "於「正在播放清單」顯示包含該首歌的播放清單">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.2 "將歌曲排在下一首歌播放">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.3 "將歌曲排在最後一首歌播放">
+<!ENTITY jcm.nowplaying.preferences.basicmode.caption "正在播放行為">
+<!ENTITY jcm.nowplaying.preferences.queuemode.caption "播放佇列行為">
+<!ENTITY jcm.nowplaying.preferences.showcontent "顯示目前播放清單的內容">
+<!ENTITY jcm.nowplaying.preferences.fork.1 "編輯清單會影響原本的播放清單">
+<!ENTITY jcm.nowplaying.preferences.fork.2 "編輯清單會以目前播放的播放清單為基礎建立新的自訂播放清單">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.question "正在播放的歌曲結束後的動作:">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.1 "無動作">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.2 "從佇列中移除">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.3 "捲動清單到下一首歌曲">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.question "當佇列播放到最底端時的動作:">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.1 "停止播放">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.2 "離開播放佇列，回到下一首要播放歌曲的播放清單">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.3 "依序由最後播放歌曲的播放清單播放">

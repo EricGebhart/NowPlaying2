@@ -1,0 +1,28 @@
+<!ENTITY jcm.nowplaying.extensionname "Now Playing - Aktuelle Wiedergabe">
+<!ENTITY jcm.nowplaying.save "Speichern">
+<!ENTITY jcm.nowplaying.clear "Liste leeren">
+<!ENTITY jcm.nowplaying.randomize "Zufällige Wiedergabe">
+<!ENTITY jcm.nowplaying.tooltip.queue "Warteschlange">
+<!ENTITY jcm.nowplaying.tooltip.queue_off "Warteschlange ausschalten">
+<!ENTITY jcm.nowplaying.preferences.windowtitle "Now Playing-Einstellungen">
+<!ENTITY jcm.nowplaying.preferences.label "Now Playing-Liste">
+<!ENTITY jcm.nowplaying.preferences.tagline "Now Playing List lässt Sie das Verhalten von Songbird beim Auswählen eines Titels ändern; zum Beispiel, wenn Sie auf eine Zeile in einer Wiedergabeliste doppelklicken.">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.0 "Nach der Auswahl eines Titels, Songbird soll:">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.1 "Die Wiedergabe des Titels starten, und:">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.1.1 "Den Titel am Amfang in die Now Playing-Liste einfügen">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.1.2 "Den Titel sowie die Wiedergabeliste in der Now Playing-Liste anzeigen">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.2 "Den Titel als ersten in die Warteschlange">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.3 "Den Titel als letzten in die Warteschlange">
+<!ENTITY jcm.nowplaying.preferences.basicmode.caption "Now Playing-Verhalten">
+<!ENTITY jcm.nowplaying.preferences.queuemode.caption "Warteschlangen-Verhalten">
+<!ENTITY jcm.nowplaying.preferences.showcontent "Den Inhalt der aktuell wiedergegebenen Wiedergabeliste anzeigen">
+<!ENTITY jcm.nowplaying.preferences.fork.1 "Das Bearbeiten der Liste beeinflusst die ursprüngliche Wiedergabeliste">
+<!ENTITY jcm.nowplaying.preferences.fork.2 "Das Bearbeiten der Liste erstellt eine neue Wiedergabeliste, die auf der aktuell wiedergegebenen Wiedergabeliste basiert">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.question "Nachdem ein Titel zu Ende ist:">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.1 "Nichts tun">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.2 "Aus der Warteschlange entfernen">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.3 "Die Liste zum nächsten Titel bewegen">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.question "Nachdem die Warteschlange das Ende erreicht hat:">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.1 "Wiedergabe anhalten">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.2 "Zum Titel, der als nächster wiedergegeben worden wäre zurückkehren, anstatt die Titel in der Warteschlange wiederzugeben">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.3 "Titel wiedergeben, der normalerweise gefolgt hätte">

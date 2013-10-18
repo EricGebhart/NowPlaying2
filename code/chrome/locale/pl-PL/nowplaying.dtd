@@ -1,0 +1,28 @@
+<!ENTITY jcm.nowplaying.extensionname "Now Playing">
+<!ENTITY jcm.nowplaying.save "Zapisz">
+<!ENTITY jcm.nowplaying.clear "Wyczyść">
+<!ENTITY jcm.nowplaying.randomize "Pomieszaj">
+<!ENTITY jcm.nowplaying.tooltip.queue "Kolejka">
+<!ENTITY jcm.nowplaying.tooltip.queue_off "Kolejka jest wyłączona">
+<!ENTITY jcm.nowplaying.preferences.windowtitle "Now Playing - preferencje">
+<!ENTITY jcm.nowplaying.preferences.label "Now Playing List">
+<!ENTITY jcm.nowplaying.preferences.tagline "Rozszerzenie &quot;Now Playing List&quot; pozwala Ci na modyfikację zachowania odtwarzacza przy wyborze utworu: na przykład po dwukrotnym kliknięciu wiersza listy odtwarzania.">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.0 "Po wybraniu utworu, Songbird powinien:">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.1 "rozpocząć odtwarzanie tego utworu i:">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.1.1 "dodać go na szczyt listy aktualnie odtwarzanych utworów">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.1.2 "pokazać zarówno utwór, jak i zawierającą go listę odtwarzania na liście aktualnie odtwarzanych utworów">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.2 "Zakolejkować utwór do odtworzenia jako następny">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.3 "Zakolejkować utwór do odtworzenia jako ostatni">
+<!ENTITY jcm.nowplaying.preferences.basicmode.caption "Zachowanie rozszerzenia">
+<!ENTITY jcm.nowplaying.preferences.queuemode.caption "Zachowanie kolejki odtwarzania">
+<!ENTITY jcm.nowplaying.preferences.showcontent "Wyświetlaj zawartość aktualnie odtwarzanej listy">
+<!ENTITY jcm.nowplaying.preferences.fork.1 "Edycja wpływa na listę odtwarzania">
+<!ENTITY jcm.nowplaying.preferences.fork.2 "Edycja powoduje utworzenie nowej listy opartej na aktualnie odtwarzanej">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.question "Po zakończeniu odtwarzania utworu:">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.1 "nic nie rób">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.2 "usuń go z kolejki">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.3 "przewiń listę do następnego utworu">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.question "Po zakończeniu odtwarzania całej kolejki:">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.1 "zakończ odtwarzanie">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.2 "powróć do utworu, który byłby odtwarzany bez kolejki">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.3 "odtwarzaj utwór znajdujący się w bibliotece po aktualnie odtwarzanym">

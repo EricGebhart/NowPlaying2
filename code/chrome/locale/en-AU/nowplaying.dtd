@@ -1,0 +1,38 @@
+<!ENTITY jcm.nowplaying.extensionname "Now Playing">
+
+<!ENTITY jcm.nowplaying.save "Save">
+<!ENTITY jcm.nowplaying.clear "Clear">
+<!ENTITY jcm.nowplaying.randomize "Randomise">
+
+<!ENTITY jcm.nowplaying.tooltip.queue "Queue">
+<!ENTITY jcm.nowplaying.tooltip.queue_off "Queue Off">
+
+<!ENTITY jcm.nowplaying.preferences.windowtitle "Now Playing Preferences">
+<!ENTITY jcm.nowplaying.preferences.label "Now Playing List">
+
+<!ENTITY jcm.nowplaying.preferences.tagline "Now Playing List lets you modify the behaviour of choosing a track; for example, when you double click a row in a playlist.">
+
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.0 "Upon choosing a track, Songbird should:">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.1 "Start playing the track, and:">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.1.1 "Insert the track at the top of the now playing list">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.1.2 "Show the track as well as its containing playlist in the now playing list">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.2 "Queue the track to be played next">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.3 "Queue the track to be played last">
+
+<!ENTITY jcm.nowplaying.preferences.basicmode.caption "Now Playing Behaviour">
+<!ENTITY jcm.nowplaying.preferences.queuemode.caption "Play Queue Behaviour">
+
+<!ENTITY jcm.nowplaying.preferences.showcontent "Display the contents of the currently playing playlist">
+
+<!ENTITY jcm.nowplaying.preferences.fork.1 "Editing the list affects the original playlist">
+<!ENTITY jcm.nowplaying.preferences.fork.2 "Editing the list creates a new custom playlist, based on the currently playing playlist">
+
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.question "After a track has finished playing:">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.1 "Do nothing">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.2 "Remove it from the queue">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.3 "Scroll the list to the next track">
+
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.question "After the queue reaches the end:">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.1 "Stop playing">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.2 "Return to the track that would have played next, instead of the queued tracks">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.3 "Play what would normally follow from the last played track">

@@ -1,0 +1,842 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE window SYSTEM "chrome://songbird/locale/songbird.dtd" >
+
+<bindings xmlns="http://www.mozilla.org/xbl"
+          xmlns:xul="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+          xmlns:xbl="http://www.mozilla.org/xbl">
+
+  <binding id="playlist"
+           extends="chrome://songbird/content/bindings/playlist.xml#playlist">
+
+    <implementation
+      implements="nsISupportsWeakReference,sbIPlaylistWidget,sbIMediaListViewTreeViewObserver,sbIMediaListViewListener,sbINowPlayingEventListener"
+      type="application/x-javascript"
+    >
+
+      <destructor>
+        if (this._destroyed) return;
+        this.destroy();
+        this._nps.removeListener(this);
+      </destructor>
+
+      <property name="mediaListView">
+        <getter>
+          <![CDATA[
+            if (this._mediaListView.wrappedJSObject)
+              return this._mediaListView.wrappedJSObject;
+            return this._mediaListView;
+          ]]>
+        </getter>
+        <setter>
+          <![CDATA[
+            return this._mediaListView = val;
+          ]]>
+        </setter>
+      </property>
+
+      <property name="treeView">
+        <getter>
+        <![CDATA[
+          return this._treeView.wrappedJSObject;
+        ]]>
+        </getter>
+
+        <setter>
+        <![CDATA[
+          return this.tree.view = this._treeView = val;
+        ]]>
+        </setter>
+      </property>
+
+      <field name="_nps">
+        this._Cc["@songbirdnest.com/Songbird/now-playing/service;1"]
+        .getService(this._Ci.sbINowPlayingService)
+      </field>
+
+      <field name="_queue">null</field>
+
+      <method name="bindQueue">
+        <parameter name="queue"/>
+        <parameter name="commands"/>
+        <body>
+        <![CDATA[
+          this._queue = queue;
+          var view = queue.getBindableView();
+          this.bind(view, commands);
+
+          // should fail silently if already added
+          var nps = this._Cc["@songbirdnest.com/Songbird/now-playing/service;1"]
+                    .getService(this._Ci.sbINowPlayingService);
+          nps.addListener(this);
+        ]]>
+        </body>
+      </method>
+
+      <method name="onQueueStart">
+        <parameter name="aQueue"/>
+        <body>
+        <![CDATA[
+        ]]>
+        </body>
+      </method>
+
+      <method name="onQueueEnd">
+        <parameter name="aQueue"/>
+        <body>
+        </body>
+      </method>
+
+
+      <method name="removeSelectedTracks">
+        <body>
+        <![CDATA[
+          // Find the indices of all the selected rows
+
+          if (this.mediaListView.treeView.selectionIsAll) {
+            this._queue.clear();
+            return;
+          }
+
+          var sort = this.mediaListView.currentSort;
+          var isAscending = sort.getPropertyAt(0).value == "a";
+
+          var selection = this.mediaListView.selection.selectedIndexedMediaItems;
+
+          var indices = [];
+          var viewLength = this.mediaListView.length;
+          while (selection.hasMoreElements()) {
+            var next = selection.getNext();
+            next.QueryInterface(this._Ci.sbIIndexedMediaItem);
+            var index = next.index;
+            if (!isAscending) {
+              index = viewLength - (index + 1);
+            }
+            indices.push(index);
+          }
+          this._queue.removeSome(indices, indices.length);
+        ]]>
+        </body>
+      </method>
+
+
+      <method name="sendPlayEvent">
+        <body>
+<![CDATA[
+  // Do not send an event as we need to map the treeview index to the
+  // position first
+
+  var mm = 
+    Components.classes["@songbirdnest.com/Songbird/Mediacore/Manager;1"]
+    .getService(Components.interfaces.sbIMediacoreManager);
+
+  var sequencePosition = this.mediaListView.selection.currentIndex;
+  var viewPosition;
+  if (mm.sequencer.mode == Ci.sbIMediacoreSequencer.MODE_SHUFFLE) {
+    var mediacoreSequence = mm.sequencer.currentSequence;
+    var array = [];
+    var enumerator = mediacoreSequence.enumerate();
+    while (enumerator.hasMoreElements()) {
+      array.push(enumerator.getNext()
+                           .QueryInterface(Ci.nsISupportsPRUint32)
+                           .data);
+    }
+    viewPosition = array[sequencePosition];
+  }
+  viewPosition = this._queue.wrappedJSObject.forwardSequenceJS[sequencePosition];
+
+  
+  mm.sequencer.playView(this._queue.view, Math.max(viewPosition, 0));
+]]>
+        </body>
+      </method>
+
+    <method name="_addAllItems">
+      <parameter name="source"/>
+      <parameter name="item"/>
+      <parameter name="row"/>
+      <parameter name="orientation"/>
+      <body>
+<![CDATA[
+  var ml = this.mediaListView.mediaList;
+  var oldLength = ml.length;
+
+  var sort = this.mediaListView.currentSort;
+  var isAscending = sort.getPropertyAt(0).value == "a";
+
+]]>
+<!--
+  // If this is a descending sort, we need to flip around the row and the
+  // orientation because the underlying media list we are modifying always has
+  // an ascending sort.
+  if (!isAscending) {
+    row = this.mediaListView.length - (row + 1);
+    if (orientation == this._Ci.sbIMediaListViewTreeViewObserver.DROP_BEFORE) {
+      orientation = this._Ci.sbIMediaListViewTreeViewObserver.DROP_AFTER;
+    }
+    else if (orientation == this._Ci.sbIMediaListViewTreeViewObserver.DROP_AFTER) {
+      orientation = this._Ci.sbIMediaListViewTreeViewObserver.DROP_BEFORE;
+    }
+  }
+
+  // If this media lists supports ordering, insert the item where it was
+  // dropped
+  var doInsert = false;
+  var isOrderable = ml instanceof this._Ci.sbIOrderableMediaList;
+  if (isOrderable && oldLength > 0 && row >= 0 ) {
+    if (orientation == this._Ci.sbIMediaListViewTreeViewObserver.DROP_BEFORE) {
+      doInsert = true;
+    }
+    else {
+      if (row + 1 < oldLength) {
+        row++;
+        doInsert = true;
+      }
+    }
+  }
+-->
+<![CDATA[
+  // This always supports ordering
+  var doInsert = false;
+  var isOrderable = true;
+  if (isOrderable && oldLength > 0 && row >= 0 ) {
+    if (orientation == this._Ci.sbIMediaListViewTreeViewObserver.DROP_BEFORE) {
+      doInsert = true;
+    }
+    else {
+      if (row + 1 < oldLength) {
+        row++;
+        doInsert = true;
+      }
+    }
+  }
+
+  if (item.equals(ml)) {
+    return;
+  }
+  else {
+    item.setProperty(SBProperties.downloadStatusTarget,
+                     item.library.guid + "," + item.guid);
+    
+    // Make an nsISimpleEnumerator out of the media list
+    var enumerator = {
+      index : 0,
+      list : item,
+      hasMoreElements : function() {
+        return (this.index < list.length);
+      },
+      getNext : function() {
+        return this.list.getItemByIndex(++this.index);
+      },
+      QueryInterface : function(iid) {
+        if (iid.equals(Ci.nsISupports) ||
+            iid.equals(Ci.nsISimpleEnumerator))
+          return this;
+
+        throw Cr.NS_ERROR_NO_INTERFACE;
+      }
+    }
+
+    if (doInsert) {
+      this._queue.insertSomeAt(enumerator, row);
+    }
+    else {
+      this._queue.addSome(enumerator);
+    }
+  }
+]]>
+      </body>
+    </method>
+
+    <method name="_addItems">
+      <parameter name="source"/>
+      <parameter name="enumerator"/>
+      <parameter name="indicesEnumerator"/>
+      <parameter name="count"/>
+      <parameter name="row"/>
+      <parameter name="orientation"/>
+      <body>
+<![CDATA[
+  var ml = this.mediaListView.mediaList;
+  var oldLength = ml.length;
+
+  var sort = this.mediaListView.currentSort;
+  var isAscending = sort.getPropertyAt(0).value == "a";
+
+]]>
+<!--
+  // If this is a descending sort, we need to flip around the row and the
+  // orientation because the underlying media list we are modifying always has
+  // an ascending sort.
+  if (!isAscending) {
+    row = this.mediaListView.length - (row + 1);
+    if (orientation == this._Ci.sbIMediaListViewTreeViewObserver.DROP_BEFORE) {
+      orientation = this._Ci.sbIMediaListViewTreeViewObserver.DROP_AFTER;
+    }
+    else if (orientation == this._Ci.sbIMediaListViewTreeViewObserver.DROP_AFTER) {
+      orientation = this._Ci.sbIMediaListViewTreeViewObserver.DROP_BEFORE;
+    }
+  }
+
+
+  // If this media lists supports ordering, insert the item where it was
+  // dropped
+  var doInsert = false;
+  var isOrderable = ml instanceof this._Ci.sbIOrderableMediaList;
+  if (isOrderable && oldLength > 0 && row >= 0 ) {
+    if (orientation == this._Ci.sbIMediaListViewTreeViewObserver.DROP_BEFORE) {
+      doInsert = true;
+    }
+    else {
+      if (row + 1 < oldLength) {
+        row++;
+        doInsert = true;
+      }
+    }
+  }
+-->
+<![CDATA[
+  // This will always support ordering
+  var doInsert = false;
+  var isOrderable = true;
+  if (isOrderable && oldLength > 0 && row >= 0 ) {
+    if (orientation == this._Ci.sbIMediaListViewTreeViewObserver.DROP_BEFORE) {
+      doInsert = true;
+    }
+    else {
+      if (row + 1 < oldLength) {
+        row++;
+        doInsert = true;
+      }
+    }
+  }
+
+
+  if (source.equals(ml) &&
+      this._dragSession &&
+      document.isSameNode(this._dragSession.sourceDocument)) {
+
+    // Find the indices of all the selected rows
+    var indices = [];
+    var viewLength = this.mediaListView.length;
+    while (indicesEnumerator.hasMoreElements()) {
+]]>
+<!--
+      var index = indicesEnumerator.getNext().index;
+-->
+<![CDATA[
+      var next = indicesEnumerator.getNext();
+      next.QueryInterface(this._Ci.sbIIndexedMediaItem);
+      var index = next.index;
+]]>
+<!--
+      if (!isAscending) {
+        index = viewLength - (index + 1);
+      }
+-->
+<![CDATA[
+      indices.push(index);
+    }
+
+]]>
+<!--
+    if (!isAscending) {
+      indices.reverse();
+    }
+-->
+<![CDATA[
+
+    if (doInsert) {
+      this._queue.moveSomeTo(indices, indices.length, row);
+    }
+    else {
+      // Moving items within a list that is not orderable does nothing
+      if (isOrderable) {
+        this._queue.moveSomeLast(indices, indices.length);
+      }
+    }
+  }
+  else {
+    var self = this;
+    if (doInsert) {
+      this._queue.insertSomeAt(enumerator, row);
+    }
+    else {
+      this._queue.addSome(enumerator);
+    }
+  }
+]]>
+      </body>
+    </method>
+      
+      <!-- called by the tree observer to see whether we can drop at this position -->
+      <method name="canDrop">
+        <parameter name="aIndex"/>
+        <parameter name="aOrientation"/>
+        <body>
+<![CDATA[
+
+  // Our tree observer callback does not get the drag session as a parameter,
+  // that is fine on windows, but on linux, the dragservice does not hold on
+  // to the session after the drop completes, so we cannot ask it for the
+  // session that just got dropped. Because of this, we need to remember the
+  // session during the drag over event, and reuse it later in the drop event.
+  // Note that canDrop is also called before calling the drop event, so in that
+  // case on linux, getCurrentSession will fail, we need to test if we got
+  // something and only record it if we did.
+
+  var dragService = this._Cc["@mozilla.org/widget/dragservice;1"]
+                        .getService(this._Ci.nsIDragService);
+  var session = dragService.getCurrentSession();
+  if (session != null)
+    this._dragSession = session.QueryInterface(this._Ci.nsIDragSession);
+  
+  // this is a playlist for a readonly library, can't drop
+  if (!this.mediaList.userEditable ||
+      !this.mediaList.userEditableContent) {
+    return false;
+  }
+
+  // look for the source of the dnd, if it is ourselves, we need to test whether
+  // we are a sorted playlist, or a library (cannot reorder tracks in a library), 
+  // in which case we disallow dropping, because it does not make sense.
+  
+  var dnd = this._Cc["@songbirdnest.com/Songbird/DndSourceTracker;1"]
+                    .getService(this._Ci.sbIDndSourceTracker);
+
+  var context;
+  
+  data = DNDUtils.getTransferDataForFlavour(this._TYPE_X_SB_TRANSFER_MEDIA_LIST,
+                                            this._dragSession);
+  if (data) {
+    context = dnd.getSourceSupports(data)
+                .QueryInterface(this._Ci.sbIMediaListTransferContext);
+  }
+  else {
+    data = DNDUtils.getTransferDataForFlavour(this._TYPE_X_SB_TRANSFER_MEDIA_ITEMS,
+                                              this._dragSession);
+    if (data) {
+      context = dnd.getSourceSupports(data)
+                   .QueryInterface(this._Ci.sbIMediaItemsTransferContext);
+    } else {
+      // the dnd does not contain songbird mediaitems, it cannot have 
+      // been made by ourselves, only accept the drop if it is a supported 
+      // flavour
+      if (!ExternalDropHandler.isSupported(this._dragSession)) 
+        return false;
+        
+      // we want to accept the drop, but ideally, we would test this.isOrdinalSort()
+      // and make it so the drop target cue is not shown. Unfortunately, returning
+      // false here, with an external drag and drop session, will prevent us from
+      // dropping entirely :/
+      return true;
+    }
+  }
+  
+]]>
+<!--
+
+  if (context.source != this.mediaList) {
+    // the drop source is not ourselves, always accept the drop
+    return true;
+  }
+  
+  // the source is ourselves, so this is a track reordering operation, only
+  // allow it if we are not sorted
+
+  // is this a library ? libraries cannot have their tracks reordered
+  if (this.mediaList == this.library) 
+    return false;
+  
+  // if we are sorted on anything else than the ordinal property, refuse reordering
+  if (!this.isOrdinalSort()) 
+    return false;
+    
+-->
+<![CDATA[
+
+  // looks like it is safe to perform a track reordering, so go for it!
+  return true;
+]]>
+        </body>
+      </method>
+      
+      
+      
+      
+      <!-- PROVIDE CUSTOM COLUMNS BEHAVIOUR -->
+      
+      <field name="_columnsAlreadySetup">false</field>
+      
+      <!-- MODIFICATIONS:
+           Force the column spec to be pulled from the now playing list
+           component's internal list, regardless of which list is actually bound
+           to the playlist.
+      -->
+      <method name="_setupColumns">
+        <body>
+<![CDATA[
+  if (this._columnsAlreadySetup)
+    return;
+  
+  this._columnsAlreadySetup = true;
+  
+  var medialist = this._nps.privateList;
+  var parser = new ColumnSpecParser(medialist, this);
+
+  // read the current column specs
+  var columnMap = parser.columnMap;
+  this._columnSpecOrigin = parser.origin;
+
+  // make a set of the properties in the default columns specs
+  var defaultSpecParser = 
+    new ColumnSpecParser(medialist, 
+                         this,
+                         parser.ORIGIN_MEDIALISTDEFAULT |
+                         parser.ORIGIN_LIBRARYDEFAULT |
+                         parser.ORIGIN_DEFAULT);
+
+  var defaultColumns = defaultSpecParser.columnMap;
+  var defaultColumnsMap = {};
+  for (var i = 0; i < defaultColumns.length; i++) {
+    defaultColumnsMap[defaultColumns[i].property] = true;
+  }
+
+  this._removeAllChildren(this._treecols);
+
+  // If the columns were initialized from some defaults..
+  if ( this._columnSpecOrigin != parser.ORIGIN_PROPERTY && 
+       this._columnSpecOrigin != parser.ORIGIN_PREFERENCES &&
+       this._columnSpecOrigin != parser.ORIGIN_ATTRIBUTE )
+  {
+
+    // Make sure we save the spec for this playlist.
+    // If we don't, then this playlist will change if the default
+    // changes, and the user will be confused.
+    this._setColumnSpecDirty();
+    
+    // If this is a playlist inited from library defaults, we may need
+    // to tweak the column spec a little
+    
+    if ( !(medialist instanceof Components.interfaces.sbILibrary) && 
+         (this._columnSpecOrigin != parser.ORIGIN_MEDIALISTDEFAULT)) 
+    {
+
+      // All playlists should have an ordinal column
+      var hasOrdinal = columnMap.some(function(columnInfo) {
+           return columnInfo.property == SBProperties.ordinal;
+         });
+      
+      if (!hasOrdinal) {
+        ColumnSpecParser.reduceWidthsProportionally(columnMap, 
+                     /* arbitrary size for # col */ 42);
+        columnMap.unshift({
+            property: SBProperties.ordinal,
+            sort: "ascending",
+            width: 42
+          });
+      }
+      
+      // We probably do not want the sort hint from the default spec.
+      sortProperty = SBProperties.ordinal;
+      sortDirection = "ascending";
+    }
+  }
+
+  // Get the list of columns from the property manager and add them to the
+  // tree
+  var numColumns = columnMap.length;
+
+  // Add the columns that have saved settings, keeping track of which column
+  // were added
+  var alreadyAdded = {};
+  var addedColumns = 0;
+  var ordinal = 1;
+  var sortProperty;
+  var sortDirection;
+  columnMap.forEach(
+    function(columnInfo) {
+      var propertyInfo = this._pm.getPropertyInfo(columnInfo.property);
+      if (!sortProperty && columnInfo.sort) {
+        sortProperty = columnInfo.property;
+        sortDirection = columnInfo.sort;
+      }
+
+      this._appendColumn(propertyInfo,
+                         false,
+                         columnInfo.width,
+                         ordinal);
+      alreadyAdded[columnInfo.property] = true;
+      addedColumns++;
+      ordinal += 2;
+    },
+    this);
+
+  // Add the rest of the columns from the property manager.  Note if there was
+  // any saved column info, add these additional columns as hidden, otherwise
+  // show them. Also, if pref "songbird.columnpicker.allowSecondaryProperties"
+  // is true, do a second pass with everything that has not yet been added, and
+  // set the secondary attribute to true, so we can use it later to sort the
+  // additional properties below the primary ones
+  var enableAll = Application.prefs.getValue(
+                 "songbird.columnpicker.allowSecondaryProperties", false);
+  var alsoUnlocalized = Application.prefs.getValue(
+                 "songbird.columnpicker.allowUnlocalizedSecondaryProperties", 
+                 false);
+  for (var i=0;i<2;i++) {
+    var isSecondary = (i == 1);
+    if (!enableAll && 
+        isSecondary) 
+      break;
+    var propEnumerator = this._pm.propertyIDs;
+    while (propEnumerator.hasMore()) {
+      var propertyID = propEnumerator.getNext();
+      if (!alreadyAdded[propertyID]) {
+        var propertyInfo = this._pm.getPropertyInfo(propertyID);
+        if (propertyInfo.userViewable ||
+            propertyID in defaultColumnsMap ||
+            isSecondary) {
+          // if this is a secondary prop, and it has no localized string
+          // it probably doesn't make sense to have it there, so only show it
+          // if the user really really wants it there
+          if (isSecondary &&
+              !alsoUnlocalized && 
+              propertyInfo.displayName.indexOf("http://") == 0)
+            continue;
+          // add the column, hidden (meaning it will appear in the column picker
+          // but with no checkmark)
+          this._appendColumn(propertyInfo,
+                             true,
+                             null,
+                             ordinal,
+                             isSecondary);
+          alreadyAdded[propertyInfo.id] = true;
+          addedColumns++;
+          ordinal += 2;
+        }
+      }
+    }
+  }
+  
+]]>
+<!--
+  // If there is no sort, default to the ordinal column 
+  if (!sortProperty) {
+    sortProperty = SBProperties.ordinal;
+    sortDirection = "ascending";
+  }
+-->
+<![CDATA[
+  // force the sort property to be what the view says it is
+  var currentSort = this.mediaListView.currentSort;
+  sortProperty = currentSort.getPropertyAt(0).id;
+  if (currentSort.getPropertyAt(0).value == "a") {
+    sortDirection = "ascending";
+  }
+  else {
+    sortDirection = "descending";
+  }
+
+
+  if (this.isSortable == "1" && this.tree.view) {
+    var ldtv = this.tree.view.QueryInterface(this._Ci.sbILocalDatabaseTreeView);
+    ldtv.setSort(sortProperty, sortDirection == "ascending");
+  }
+
+  if (this.tree.columns) {
+    this.tree.columns.invalidateColumns();
+  }
+]]>
+        </body>
+      </method>
+      
+      <!-- MODIFICATIONS:
+           Force the column spec to be saved to the now playing list component's
+           internal list, regardless of which list is actually bound to the
+           playlist.
+      -->
+      <method name="_saveColumnSpec">
+        <body>
+<![CDATA[
+  this._saveColumnSpecTimeout = null;
+  var columns = [];
+
+  var treecolList = this._treecols.getElementsByTagNameNS(this._XUL_NS,
+                                                          "treecol");
+
+  // Gather the column information for the columns that are not hidden
+  for (var i = 0; i < treecolList.length; i++) {
+    var col = treecolList[i];
+    if (!col.hasAttribute("hidden") ||
+        col.getAttribute("hidden") != "true" ) {
+      var columnInfo = { property: col.getAttribute("bind"),
+                         ordinal:  col.getAttribute("ordinal"),
+                         width:    col.width };
+
+      var sortActive = col.getAttribute("sortActive");
+      if (sortActive) {
+        var sortDirection = col.getAttribute("sortDirection");
+        var sortKey;
+        if (sortDirection == "ascending") {
+          sortKey = "a";
+        }
+        else if (sortDirection == "descending") {
+          sortKey = "d";
+        }
+        if (sortKey) {
+          columnInfo.sort = sortKey;
+        }
+      }
+
+      columns.push(columnInfo);
+    }
+  }
+
+  // Sort the column list by ordinal
+  columns.sort(function(a, b) { return a.ordinal - b.ordinal; });
+
+  var columnSpec = "";
+  var first = true;
+
+  function writeColumnInfo(columnInfo) {
+    var newString;
+    if (first) {
+      newString = "";
+      first = false;
+    }
+    else {
+      newString = " ";
+    }
+
+    newString += columnInfo.property;
+    if (columnInfo.width) {
+      newString += " " + columnInfo.width;
+    }
+    if (columnInfo.sort) {
+      newString += " " + columnInfo.sort;
+    }
+    columnSpec += newString;
+  }
+
+  columns.forEach(writeColumnInfo);
+
+  // Sanity check, don't write a bad string.
+  try {
+    var columns = ColumnSpecParser.parseColumnSpec(columnSpec);
+  }
+  catch (e) {
+    this._reportError('Almost wrote bad columnSpec: "' + columnSpec + '"', e);
+    return;
+  }
+
+  if (!columnSpec) {
+    throw new Error("No columns enumerated");
+  }
+
+  var mediaList = this._nps.privateList;
+  this.ignoreColumnSpecUpdate = true;
+  mediaList.setProperty(SBProperties.columnSpec, columnSpec);
+  this.ignoreColumnSpecUpdate = false;
+  
+  dump("\n\nplaylist.xml saving column spec: " + columnSpec + "\n\n");
+
+  // Consider saving this spec as a default
+  if (!this._suppressSaveAsDefaultColumnSpec) {
+  
+    // The only time we want to save the column spec as a default is if 
+    // multiple playlists are sharing a column spec using a preference.
+    if (this.hasAttribute("useColumnSpecPreference")) {
+      var pref = this.getAttribute("useColumnSpecPreference");
+      Application.prefs.setValue(pref, columnSpec);
+    }
+  }
+]]>
+        </body>
+      </method>
+
+    </implementation>
+
+    <handlers>
+      
+      <handler event="keypress" key=" " phase="target">
+        <![CDATA[
+          if (event.originalTarget != this.tree) {
+            // possibly an event from the inline metadata editing textbox
+            return;
+          }
+          var mm = 
+            Components.classes["@songbirdnest.com/Songbird/Mediacore/Manager;1"]
+                      .getService(Components.interfaces.sbIMediacoreManager);
+          var primaryCore = mm.primaryCore;
+          var status = mm.status;
+          const sbIMediacoreStatus = Components.interfaces.sbIMediacoreStatus;
+          
+          if (primaryCore &&
+              (status.state == sbIMediacoreStatus.STATUS_PLAYING ||
+               status.state == sbIMediacoreStatus.STATUS_BUFFERING))
+          {
+            primaryCore.pause();
+          } else {
+            if (primaryCore && status.state == sbIMediacoreStatus.STATUS_PAUSED) {
+              primaryCore.play();
+            } else {
+]]>
+<!--
+              mm.sequencer.playView(this.mediaListView,
+                                    Math.max(this.mediaListView.selection.currentIndex, 0));
+-->
+<![CDATA[
+              this.sendPlayEvent();
+            }
+          }
+          event.stopPropagation();
+        ]]>
+      </handler>
+
+      <handler event="keypress" phase="target">
+        <![CDATA[
+          if (event.originalTarget != this.tree) {
+            // possibly an event from the inline metadata editing textbox
+            return;
+          }
+
+          /* We have to handle the enter key like this because event
+           * filtering is broken for certain keycodes including space 
+           * and enter.
+           */
+          if (event.keyCode == KeyEvent.DOM_VK_RETURN &&
+              !event.shiftKey &&
+              !event.metaKey &&
+              !event.ctrlKey &&
+              !event.altKey) {
+]]>
+<!--
+            var mm = 
+              Components.classes["@songbirdnest.com/Songbird/Mediacore/Manager;1"]
+                        .getService(Components.interfaces.sbIMediacoreManager);
+
+            mm.sequencer.playView(this.mediaListView,
+                                  Math.max(this.mediaListView.selection.currentIndex, 0));
+-->
+<![CDATA[
+              this.sendPlayEvent();
+
+            event.stopPropagation();
+          }       
+        ]]>
+      </handler>
+
+      <handler event="focus">
+        <![CDATA[
+          var windowMediator = Cc["@mozilla.org/appshell/window-mediator;1"]
+                               .getService(Ci.nsIWindowMediator);
+          var songbirdWindow = windowMediator.getMostRecentWindow("Songbird:Main"); 
+          songbirdWindow.gBrowser._mediaListViewForTrackEditor = this.mediaListView;
+        ]]>
+      </handler>
+
+    </handlers>
+
+  </binding>
+
+</bindings>

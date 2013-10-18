@@ -1,0 +1,23 @@
+locale nowplaying fr-FR jar:chrome/nowplaying.jar!/locale/fr-FR/
+overlay windowtype:Songbird:Main chrome://nowplaying/content/xul/mainWindowOverlay.xul
+overlay chrome://songbird/content/xul/mediaPageOverlay.xul chrome://nowplaying/content/xul/playlistOverlay.xul
+locale nowplaying en-US jar:chrome/nowplaying.jar!/locale/en-US/
+content nowplaying jar:chrome/nowplaying.jar!/content/ contentaccessible=yes
+locale nowplaying en-AU jar:chrome/nowplaying.jar!/locale/en-AU/
+locale nowplaying bn-IN jar:chrome/nowplaying.jar!/locale/bn-IN/
+locale nowplaying pt-PT jar:chrome/nowplaying.jar!/locale/pt-PT/
+locale nowplaying pl-PL jar:chrome/nowplaying.jar!/locale/pl-PL/
+locale nowplaying ja-JP jar:chrome/nowplaying.jar!/locale/ja-JP/
+locale nowplaying de-DE jar:chrome/nowplaying.jar!/locale/de-DE/
+locale nowplaying nl-NL jar:chrome/nowplaying.jar!/locale/nl-NL/
+locale nowplaying tr-TR jar:chrome/nowplaying.jar!/locale/tr-TR/
+locale nowplaying he-IL jar:chrome/nowplaying.jar!/locale/he-IL/
+skin nowplaying classic/1.0 jar:chrome/nowplaying.jar!/skin/
+locale nowplaying pt-BR jar:chrome/nowplaying.jar!/locale/pt-BR/
+locale nowplaying es-ES jar:chrome/nowplaying.jar!/locale/es-ES/
+locale nowplaying da-DK jar:chrome/nowplaying.jar!/locale/da-DK/
+locale nowplaying pt-PT jar:chrome/nowplaying.jar!/locale/zh-TW/
+locale nowplaying pt-PT jar:chrome/nowplaying.jar!/locale/sl-SL/
+locale nowplaying pt-PT jar:chrome/nowplaying.jar!/locale/sl-SI/
+locale nowplaying sl-SL jar:chrome/nowplaying.jar!/locale/sl-SL/
+locale nowplaying zh-TW jar:chrome/nowplaying.jar!/locale/zh-TW/

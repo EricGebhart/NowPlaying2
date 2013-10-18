@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<overlay id="nowplaying-trackeditor-overlay"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+<dialog
+ id="track_editor"
+ onload="alternateLoad();"
+/>
+
+  <script type="application/x-javascript">
+    <![CDATA[
+    
+    function alternateLoad() {
+      
+      var windowMediator = Cc["@mozilla.org/appshell/window-mediator;1"]
+                      .getService(Ci.nsIWindowMediator);
+      var songbirdWindow = windowMediator.getMostRecentWindow("Songbird:Main"); 
+      var browser = songbirdWindow.gBrowser;
+
+      if (browser._mediaListViewForTrackEditor) {
+        TrackEditor.onTabContentChange = function() {
+          this.mediaListView = browser._mediaListViewForTrackEditor;
+          this.onSelectionChanged();
+        };
+      }
+
+      // Resume loading as normal
+      TrackEditor.onLoadTrackEditor();
+    }
+    
+    ]]>
+  </script>
+
+</overlay>
+

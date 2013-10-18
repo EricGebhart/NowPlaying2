@@ -1,0 +1,28 @@
+<!ENTITY jcm.nowplaying.extensionname "Ahora en reproducción">
+<!ENTITY jcm.nowplaying.save "Guardar">
+<!ENTITY jcm.nowplaying.clear "Vaciar">
+<!ENTITY jcm.nowplaying.randomize "Aleatorio">
+<!ENTITY jcm.nowplaying.tooltip.queue "Cola">
+<!ENTITY jcm.nowplaying.tooltip.queue_off "Cola desactivada">
+<!ENTITY jcm.nowplaying.preferences.windowtitle "Preferencias de Ahora en reproducción">
+<!ENTITY jcm.nowplaying.preferences.label "Ahora en reproducción">
+<!ENTITY jcm.nowplaying.preferences.tagline "&quot;Ahora en reproducción&quot; le permite modificar el comportamiento al seleccionar una pista, cuando hace doble clic en una fila de la lista de reproducción.">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.0 "Cuando se seleccione una pista, Songbird debería:">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.1 "Comenzar la reproducción de la pista y:">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.1.1 "Insertar la pista en la parte superior de &quot;ahora en reproducción&quot;">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.1.2 "Mostrar la pista así como la lista a la que pertenece en &quot;ahora en reproducción&quot;">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.2 "Poner en cola la pista para se reproducida a continuación">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.3 "Poner en cola la pista para ser reproducida en último lugar">
+<!ENTITY jcm.nowplaying.preferences.basicmode.caption "Comportamiento de Ahora en reproducción">
+<!ENTITY jcm.nowplaying.preferences.queuemode.caption "Comportamiento de la cola de reproducción">
+<!ENTITY jcm.nowplaying.preferences.showcontent "Mostrar los contenidos de las lista actualmente en reproducción">
+<!ENTITY jcm.nowplaying.preferences.fork.1 "Editar la lista afecta a la lista de reproducción original">
+<!ENTITY jcm.nowplaying.preferences.fork.2 "Editar la lista creará una nueva lista personalizada, basada en la que está actualmente en reproducción">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.question "Después de que finalice de reproducirse un pista:">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.1 "No hacer nada">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.2 "Eliminarla de la cola">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.3 "Mover la lista a la siguiente canción">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.question "Cuando la cola llegue al final:">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.1 "Detener la reproducción">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.2 "Volver a la pista que se habría reproducido posteriormente, en vez de las pistas en la cola">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.3 "Reproducir lo que normalmente seguiría a la última pista reproducida">

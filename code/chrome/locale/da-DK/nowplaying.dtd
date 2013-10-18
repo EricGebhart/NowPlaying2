@@ -1,0 +1,28 @@
+<!ENTITY jcm.nowplaying.extensionname "Now Playing">
+<!ENTITY jcm.nowplaying.save "Gem">
+<!ENTITY jcm.nowplaying.clear "Ryd">
+<!ENTITY jcm.nowplaying.randomize "Tilfældig rækkefølge">
+<!ENTITY jcm.nowplaying.tooltip.queue "Kø">
+<!ENTITY jcm.nowplaying.tooltip.queue_off "Kø fra">
+<!ENTITY jcm.nowplaying.preferences.windowtitle "Now Playing indstillinger">
+<!ENTITY jcm.nowplaying.preferences.label "Now Playing List">
+<!ENTITY jcm.nowplaying.preferences.tagline "Now Playing List lader dig ændre måden hvorpå du vælger et spor; fx. når du dobbeltklikker på en række i en spilleliste.">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.0 "Når der vælges et spor, skal Songbird:">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.1 "Starte afspilning af sporet og:">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.1.1 "Indsætte sporet øverst på spillelisten">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.1.2 "Vise såvel sporet som dets spilleliste i Now Playing-listen">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.2 "Sætte sporet i kø som det næste">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.3 "Sætte sporet i kø som det sidste">
+<!ENTITY jcm.nowplaying.preferences.basicmode.caption "Nu afspilles brugerflade">
+<!ENTITY jcm.nowplaying.preferences.queuemode.caption "Kø brugerflade">
+<!ENTITY jcm.nowplaying.preferences.showcontent "Vis indholdet af den spillede afspilningsliste">
+<!ENTITY jcm.nowplaying.preferences.fork.1 "Redigering af listen påvirker den oprindelige afspilningsliste">
+<!ENTITY jcm.nowplaying.preferences.fork.2 "Redigering af listen opretter en ny brugerdefineret afspilningsliste baseret på den nuværende spillede afspilningsliste">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.question "Efter sporet er færdigspillet:">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.1 "Gør intet">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.2 "Fjern det fra køen">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.3 "Rul listen til det næste spor">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.question "Når slutningen af køen nåes:">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.1 "Stop afspilning">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.2 "Returner til sporet der ville være afspillet i stedet for til sporene i køen">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.3 "Afspil hvad der normalt ville være afspillet efter det senest afspillede spor">

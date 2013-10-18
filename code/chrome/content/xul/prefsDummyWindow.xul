@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<window xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+        onload="openAboutPage(); window.close();">
+
+  <script type="application/x-javascript">
+    <![CDATA[
+    
+    function openAboutPage() {
+	    var windowMediator = Components.classes["@mozilla.org/appshell/window-mediator;1"]
+                           .getService(Components.interfaces.nsIWindowMediator);
+      var mainWindow = windowMediator.getMostRecentWindow("Songbird:Main");
+      
+      mainWindow.gBrowser.loadURI("about:nowplayinglist");
+      window.close();
+    }
+    
+    ]]>
+  </script>
+  
+</window>

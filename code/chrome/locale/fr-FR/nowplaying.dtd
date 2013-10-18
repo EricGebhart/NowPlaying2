@@ -1,0 +1,28 @@
+<!ENTITY jcm.nowplaying.extensionname "Lecture en cours">
+<!ENTITY jcm.nowplaying.save "Enregistrer">
+<!ENTITY jcm.nowplaying.clear "Effacer">
+<!ENTITY jcm.nowplaying.randomize "Au hasard">
+<!ENTITY jcm.nowplaying.tooltip.queue "File d&apos;attente">
+<!ENTITY jcm.nowplaying.tooltip.queue_off "Fin de la file d&apos;attente">
+<!ENTITY jcm.nowplaying.preferences.windowtitle "Préférences de Now Playing">
+<!ENTITY jcm.nowplaying.preferences.label "Now Playing List">
+<!ENTITY jcm.nowplaying.preferences.tagline "L'extension Now Playing List vous permet de modifier la manière de choisir une piste ; par exemple, lorsque vous double-cliquez sur une colonne dans une liste de lecture.">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.0 "Lorsque vous choisissez une piste, Songbird doit :">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.1 "Commencer à jouer le morceau, et :">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.1.1 "Mettre le morceau en haut de la liste de lecture">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.1.2 "Afficher le morceau ainsi que la liste de lecture dont il fait partie dans la liste de lecture en cours.">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.2 "Mettre le morceau dans la file d'attente pour qu'il soir joué juste après">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.3 "Mettre le morceau en file d'attente pour qu'il soit joué le dernier">
+<!ENTITY jcm.nowplaying.preferences.basicmode.caption "Comportement de Now Playing">
+<!ENTITY jcm.nowplaying.preferences.queuemode.caption "Comportement de la lecture de la file d&apos;attente">
+<!ENTITY jcm.nowplaying.preferences.showcontent "Affiche le contenu de la liste de lecture en cours">
+<!ENTITY jcm.nowplaying.preferences.fork.1 "L&apos;édition de la liste modifie la liste de lecture d&apos;origine">
+<!ENTITY jcm.nowplaying.preferences.fork.2 "Éditer la liste crée une nouvelle liste personnalisée, basée sur la liste de lecture en cours.">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.question "Après la fin d&apos;une piste :">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.1 "Ne rien faire">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.2 "La supprimer de la file d&apos;attente">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.3 "Descendre dans la liste jusqu&apos;à la piste suivante">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.question "Lorsque la file d&apos;attente touche à sa fin :">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.1 "Cesser de jouer">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.2 "Retourner à la piste qui aurait commencé ensuite, si la file d&apos;attente n&apos;avait pas été suivie">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.3 "Jouer ce qui aurait normalement du suivre la dernière piste jouée">

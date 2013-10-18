@@ -1,0 +1,192 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin" type="text/css" title="Skin"?>
+<?xml-stylesheet href="chrome://songbird/skin/songbird.css" type="text/css" title="Skin"?>
+
+<?xml-stylesheet href="chrome://nowplaying/skin/about.css" type="text/css"?>
+
+<!DOCTYPE window SYSTEM "chrome://nowplaying/locale/nowplaying.dtd" >
+
+<page title="&jcm.nowplaying.preferences.label;"
+      xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+      id="nowplaying_aboutpage"
+      onload="onLoad();">
+  
+  <vbox id="content" flex="1">
+    
+    <label id="title" value="&jcm.nowplaying.preferences.label;" />
+    <description class="description">&jcm.nowplaying.preferences.tagline;</description>
+      
+      <description>&jcm.nowplaying.preferences.choosebehavior.0;</description>
+      
+      <stack>
+        <hbox style="-moz-box-pack:end;">
+          <vbox id="diagram-back">
+            <!-- Must have the same dimensions as the diagram image -->
+            <box width="320" height="190"/>
+          </vbox>
+        </hbox>
+        <hbox id="options-box">
+          <vbox flex="1">
+
+            <radiogroup id="playwhen-radiogroup" preference="playwhen">
+
+              <radio label="&jcm.nowplaying.preferences.choosebehavior.1;"
+                     oncommand="setPref('playwhen', '0');"/>
+
+              <radiogroup id="putwhere-radiogroup" preference="putwhere">
+                <radio label="&jcm.nowplaying.preferences.choosebehavior.1.1;"
+                       oncommand="setPref('putwhere', '0');"/>
+                <radio label="&jcm.nowplaying.preferences.choosebehavior.1.2;"
+                       oncommand="setPref('putwhere', '1');"/>
+              </radiogroup>
+
+              <radio label="&jcm.nowplaying.preferences.choosebehavior.2;"
+                     oncommand="setPref('playwhen', '1');"/>
+              <radio label="&jcm.nowplaying.preferences.choosebehavior.3;"
+                     oncommand="setPref('playwhen', '2');"/>
+
+            </radiogroup>
+
+          </vbox>
+          <vbox id="diagram-box">
+            <image id="diagram" src="all.png"/>
+          </vbox>
+        </hbox>
+      </stack>
+      
+      <description>Select the behaviour when control is pressed.</description>
+      <stack>
+        <hbox style="-moz-box-pack:end;">
+          <vbox id="diagram-back">
+            <!-- Must have the same dimensions as the diagram image -->
+            <box width="320" height="190"/>
+          </vbox>
+        </hbox>
+        <hbox id="options-box">
+          <vbox flex="1">
+
+            <radiogroup id="ctrlplaywhen-radiogroup" preference="ctrlplaywhen">
+
+              <radio label="&jcm.nowplaying.preferences.choosebehavior.1;"
+                     oncommand="setPref('ctrlplaywhen', '0');"/>
+
+              <radiogroup id="ctrlputwhere-radiogroup" preference="ctrlputwhere">
+                <radio label="&jcm.nowplaying.preferences.choosebehavior.1.1;"
+                       oncommand="setPref('ctrlputwhere', '0');"/>
+                <radio label="&jcm.nowplaying.preferences.choosebehavior.1.2;"
+                       oncommand="setPref('ctrlputwhere', '1');"/>
+              </radiogroup>
+
+              <radio label="&jcm.nowplaying.preferences.choosebehavior.2;"
+                     oncommand="setPref('ctrlplaywhen', '1');"/>
+              <radio label="&jcm.nowplaying.preferences.choosebehavior.3;"
+                     oncommand="setPref('ctrlplaywhen', '2');"/>
+
+            </radiogroup>
+
+          </vbox>
+          <vbox id="diagram-box">
+            <image id="ctrldiagram" src="all.png"/>
+          </vbox>
+        </hbox>
+      </stack>
+  </vbox>
+  
+  <script type="application/x-javascript">
+    <![CDATA[
+    var prefObserver = {
+      _branch: null,
+      _putWhereRadioGroup: null,
+      init: function() {
+        var prefs = Components.classes["@mozilla.org/preferences-service;1"]
+                    .getService(Components.interfaces.nsIPrefService);
+        this._branch = prefs.getBranch("extensions.nowplaying@j.c.m.");
+        this._branch.QueryInterface(Components.interfaces.nsIPrefBranch2);
+        this._branch.addObserver("", this, false);
+        
+        prefObserver._putWhereRadioGroup = document.getElementById("putwhere-radiogroup");
+        prefObserver._ctrlputWhereRadioGroup = document.getElementById("ctrlputwhere-radiogroup");
+      },
+      deinit: function() {
+        if(!this._branch) return;
+        this._branch.removeObserver("", this);
+      },
+      observe: function(aSubject, aTopic, aData) {
+        if(aTopic != "nsPref:changed") return;
+        // aSubject is the nsIPrefBranch we're observing (after appropriate QI)
+        // aData is the name of the pref that's been changed (relative to aSubject)
+        switch (aData) {
+          case "playwhen" :
+            this._putWhereRadioGroup.disabled = (this._branch.getIntPref(aData) != 0);
+            setDiagram();
+            break;
+          case "putwhere" :
+            setDiagram();
+            break;
+          case "ctrlplaywhen" :
+            this._ctrlputWhereRadioGroup.disabled = (this._branch.getIntPref(aData) != 0);
+            setDiagram();
+            break;
+          case "ctrlputwhere" :
+            setDiagram();
+            break;
+        }
+      },
+      QueryInterface: function(aIID) {
+        if (!aIID.equals(Components.interfaces.nsISupports) &&
+            !aIID.equals(Components.interfaces.nsIObserver)) {
+          throw Components.results.NS_ERROR_NO_INTERFACE;
+        }
+        return this;
+      }
+    };
+    
+    function unloadPane(aEvent) {
+      prefObserver.deinit();
+    }
+    window.addEventListener("unload", unloadPane, false);
+    
+    function onLoad() {
+      prefObserver.init();
+      
+      // Make sure the correct radio buttons are selected
+      var playwhen = prefObserver._branch.getIntPref("playwhen");
+      var putwhere = prefObserver._branch.getIntPref("putwhere");
+      document.getElementById("playwhen-radiogroup").selectedIndex = playwhen;
+      document.getElementById("putwhere-radiogroup").selectedIndex = putwhere;
+      
+      var ctrlplaywhen = prefObserver._branch.getIntPref("ctrlplaywhen");
+      var ctrlputwhere = prefObserver._branch.getIntPref("ctrlputwhere");
+      document.getElementById("ctrlplaywhen-radiogroup").selectedIndex = ctrlplaywhen;
+      document.getElementById("ctrlputwhere-radiogroup").selectedIndex = ctrlputwhere;
+      
+      prefObserver._putWhereRadioGroup.disabled = (prefObserver._branch.getIntPref("playwhen") != 0);
+      prefObserver._ctrlputWhereRadioGroup.disabled = (prefObserver._branch.getIntPref("ctrlplaywhen") != 0);
+      setDiagram();
+    }
+
+
+    function setPref(key, value) {
+      prefObserver._branch.setIntPref(key, value);
+    }
+
+    function setDiagram() {
+      var playwhen = prefObserver._branch.getIntPref("playwhen");
+      var putwhere = prefObserver._branch.getIntPref("putwhere");
+
+      var images = ["inserttop.png", "all.png", "insertnext.png", "insertlast.png"];
+      var image = 0;
+      if (playwhen == 0) {
+        image = putwhere;
+      } else {
+        image = playwhen + 1;
+      }
+
+      var diagram = document.getElementById("diagram");
+      diagram.setAttribute("src", "chrome://nowplaying/content/graphics/" + images[image]);
+    }
+    ]]>
+  </script>
+  
+</page>

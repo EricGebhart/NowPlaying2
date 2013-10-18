@@ -1,0 +1,28 @@
+<!ENTITY jcm.nowplaying.extensionname "Na sporedu">
+<!ENTITY jcm.nowplaying.save "Shrani">
+<!ENTITY jcm.nowplaying.clear "Počisti">
+<!ENTITY jcm.nowplaying.randomize "Premešaj">
+<!ENTITY jcm.nowplaying.tooltip.queue "Vrsta">
+<!ENTITY jcm.nowplaying.tooltip.queue_off "Izključi vrsto">
+<!ENTITY jcm.nowplaying.preferences.windowtitle "Nastavitve sporeda">
+<!ENTITY jcm.nowplaying.preferences.label "Spored">
+<!ENTITY jcm.nowplaying.preferences.tagline "Spored vam omogoča spreminjanje vedenja izbora posnetka, ko npr. dvokliknete vrstico na seznamu predvajanja.">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.0 "Ob izboru posnetka naj Songbird:">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.1 "začne predvajati posnetek in:">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.1.1 "vstavi posnetek na vrh sporeda">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.1.2 "pokaže posnetek in seznam, ki ga vsebuje, na sporedu">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.2 "postavi posnetek v vrsto, da bo predvajan kot naslednji">
+<!ENTITY jcm.nowplaying.preferences.choosebehavior.3 "postavi posnetek v vrsto, da bo predvajanj kot zadnji">
+<!ENTITY jcm.nowplaying.preferences.basicmode.caption "Vedenje sporeda">
+<!ENTITY jcm.nowplaying.preferences.queuemode.caption "Vedenje vrste predvajanja">
+<!ENTITY jcm.nowplaying.preferences.showcontent "Prikaži vsebino trenutnega sporeda">
+<!ENTITY jcm.nowplaying.preferences.fork.1 "Urejanje sporeda vpliva na izvorni seznam predvajanja">
+<!ENTITY jcm.nowplaying.preferences.fork.2 "Urejanje sporeda ustvari nov seznam predvajanja po meri, ki temelji na trenutnem sporedu">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.question "Ko se predvajanje skladbe konča:">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.1 "ne naredi ničesar">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.2 "odstrani jo iz vrste">
+<!ENTITY jcm.nowplaying.preferences.playedtrackbehaviour.3 "pomakni se na naslednjo skladbo na seznamu">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.question "Ko prideš na konec vrste:">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.1 "ustavi predvajanje">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.2 "vrni se na skladbo, ki bi se predvajala naslednja, ne na skladbe v vrsti">
+<!ENTITY jcm.nowplaying.preferences.queueendbehaviour.3 "predvajaj, kar bi običajno sledilo zadnje predvajani skladbi">
