@@ -1,2 +1,2 @@
-cd code/chrome; zip -r nowplaying.jar *; cd ../..; zip -r nowplaying3.xpi *
+cd code/chrome; zip -r nowplaying.jar *; cd ..; zip -r ../nowplaying.xpi *
 
